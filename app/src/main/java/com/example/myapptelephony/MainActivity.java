@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         SpeedText = (TextView) findViewById(R.id.textView13);
         ConnectivityText = (TextView) findViewById(R.id.textView15);
         ipText = (TextView) findViewById(R.id.textView17);
