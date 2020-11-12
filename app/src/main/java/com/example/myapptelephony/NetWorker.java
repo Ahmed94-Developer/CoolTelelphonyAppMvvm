@@ -48,10 +48,6 @@ public class NetWorker extends Worker{
     @Override
     public Result doWork() {
 
-       /* ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
-        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
-            public void run() {*/
-
          Data data = getInputData();
         final String desc = data.getString(MainActivity.KEY_TASK_DESC);
 
@@ -146,32 +142,6 @@ public class NetWorker extends Worker{
         editor.putString("connect1", connection);
         editor.putString("ip1", ip);
         editor.apply();
-           // }
-        //}, 0, 5000, TimeUnit.MILLISECONDS);
-       /* SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs1", MODE_PRIVATE);
-        String latitude = prefs.getString("lati1", "latitude");
-        String longtitude = prefs.getString("lon1", "longtitude");
-        String locality = prefs.getString("local1", "locality");
-        String countryName = prefs.getString("country1", "countryName");
-        String Speed = prefs.getString("speed", "Speed");
-        String ip = prefs.getString("ip1", "ip11");
-        String connection = prefs.getString("connect1", "connectivity");
-        String latency = prefs.getString("latency", "latency1");
-        String delay = prefs.getString("delay", "delay1");
-        String loss = prefs.getString("lost", "lost1");*/
-
-
-      /*  Data data1 = new Data.Builder()
-                .putString("lati1",latitude)
-                .putString("lon1", longtitude)
-                .putString("local1", locality)
-                .putString("country1", countryName)
-                .putString("speed", Speed)
-                .putString("connect1", connection)
-                .putString("latency",latency)
-                .putString("delay",delay)
-               // .putString("loss",loss)
-                .putString("ip1", ip).build();*/
 
         return Result.success();
     }

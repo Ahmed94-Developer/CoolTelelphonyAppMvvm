@@ -8,7 +8,10 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.work.Constraints;
 import androidx.work.Data;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkInfo;
@@ -128,31 +131,33 @@ public class MainActivity extends AppCompatActivity implements
                     binding.textView19.setText("Latitude : " + netWorks.get(i).getLatitude()
                             + " ;" + "Longtitude :" + netWorks.get(i).getLongtitude() + "\n" + "Location : "
                             + netWorks.get(i).getLocality() + " ; " + netWorks.get(i).getCountryName());
-                    //binding.textView23.setText(" Latency :" + netWorks.get(i).getLatency());
                     binding.textView23.setText(" Latency :" + netWorks.get(i).getLatency() + " ;" + " PacketLost : "
                             + netWorks.get(i).getPacketLoss() + "\n" + " PacketDelay : " + netWorks.get(i).getPacketDelay());
                 }
             }
         });
 
-        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
-        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+
+       Timer time = new Timer();
+
+        time.schedule(new TimerTask() {
             public void run() {
 
+         Data data = new Data.Builder()
+                .putString(KEY_TASK_DESC, "Sending work data").build();
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED).setRequiresBatteryNotLow(true).build();
 
-                Data data = new Data.Builder()
-                        .putString(KEY_TASK_DESC, "sending work data").build();
-                OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(NetWorker.class)
-                        .setInputData(data)
-                        .build();
-                WorkManager.getInstance(MainActivity.this).enqueue(request);
-                WorkManager.getInstance(MainActivity.this).enqueue(request);
+        PeriodicWorkRequest request = new PeriodicWorkRequest.Builder(NetWorker.class, 5000,
+                TimeUnit.MILLISECONDS)
+                .setInputData(data)
+                .addTag("tag")
+                .setInitialDelay(0,TimeUnit.MILLISECONDS)
+                .setConstraints(constraints).build();
+        WorkManager.getInstance(MainActivity.this)
+                .enqueueUniquePeriodicWork("periodic",ExistingPeriodicWorkPolicy.REPLACE,request);
 
                 SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs1", MODE_PRIVATE);
-                String latitud = prefs.getString("lati1", "latitude");
-                String longtitude = prefs.getString("lon1", "longtitude");
-                String locality = prefs.getString("local1", "locality");
-                String countryName = prefs.getString("country1", "countryName");
                 String Speed = prefs.getString("speed", "Speed");
                 String ip = prefs.getString("ip1", "ip11");
                 String connection = prefs.getString("connect1", "connectivity");
@@ -160,14 +165,9 @@ public class MainActivity extends AppCompatActivity implements
                 String delay = prefs.getString("delay", "delay1");
                 String loss = prefs.getString("lost", "lost1");
 
-            NetWork netWork = new NetWork(Speed,connection,ip,latitud,longtitude,locality,countryName,latency,loss,delay);
-              netWorkViewModel.insert(netWork);
-
-                  }
-          }, 0, 10*60*1000, TimeUnit.MILLISECONDS);
-
-
-
+                NetWork netWork = new NetWork(Speed, connection, ip, latitude1, longtitude1, locality, countryName, latency, loss, delay);
+                netWorkViewModel.insert(netWork);
+           }}, 2000, 600000);
 
 
         binding.imageButton5.setOnClickListener(new View.OnClickListener() {
@@ -178,6 +178,11 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
     }
+
+    String latitude1;
+    String longtitude1;
+    String locality;
+    String countryName;
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -200,14 +205,11 @@ public class MainActivity extends AppCompatActivity implements
 
                 String add = "";
                 if (addresses.size() > 0) {
-                    String latitude1 = ""+location.getLatitude();
-                    String longtitude1 = ""+location.getLongitude();
+                     latitude1 = ""+location.getLatitude();
+                     longtitude1 = ""+location.getLongitude();
+                     locality =addresses.get(0).getLocality();
+                     countryName =  addresses.get(0).getCountryName();
 
-                    editor.putString("lat", latitude1);
-                    editor.putString("long", longtitude1);
-                    editor.putString("locality", addresses.get(0).getLocality());
-                    editor.putString("countryName", addresses.get(0).getCountryName());
-                    editor.apply();
                 }
             } catch (IOException e1) {
                 e1.printStackTrace();
