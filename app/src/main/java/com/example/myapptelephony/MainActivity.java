@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements
 
                 NetWork netWork = new NetWork(Speed, connection, ip, latitude1, longtitude1, locality, countryName, latency, loss, delay);
                 netWorkViewModel.insert(netWork);
-           }}, 2000, 600000);
+           }}, 2000, 300000);
 
 
         binding.imageButton5.setOnClickListener(new View.OnClickListener() {
