@@ -47,6 +47,5 @@ public class LoginActivity extends AppCompatActivity {
         WorkManager.getInstance(LoginActivity.this)
                 .enqueue(request);
 
-
     }
 }
