@@ -148,14 +148,13 @@ public class MainActivity extends AppCompatActivity implements
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED).setRequiresBatteryNotLow(true).build();
 
-        PeriodicWorkRequest request = new PeriodicWorkRequest.Builder(NetWorker.class, 5000,
-                TimeUnit.MILLISECONDS)
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(NetWorker.class)
                 .setInputData(data)
                 .addTag("tag")
                 .setInitialDelay(0,TimeUnit.MILLISECONDS)
                 .setConstraints(constraints).build();
         WorkManager.getInstance(MainActivity.this)
-                .enqueueUniquePeriodicWork("periodic",ExistingPeriodicWorkPolicy.REPLACE,request);
+                .enqueue(request);
 
                 SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs1", MODE_PRIVATE);
                 String Speed = prefs.getString("speed", "Speed");
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements
 
                 NetWork netWork = new NetWork(Speed, connection, ip, latitude1, longtitude1, locality, countryName, latency, loss, delay);
                 netWorkViewModel.insert(netWork);
-           }}, 2000, 300000);
+           }}, 2000, 600000);
 
 
         binding.imageButton5.setOnClickListener(new View.OnClickListener() {
