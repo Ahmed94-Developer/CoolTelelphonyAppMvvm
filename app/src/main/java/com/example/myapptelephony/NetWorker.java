@@ -5,34 +5,29 @@ import android.app.NotificationManager;
 import android.content.Context;
 
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.os.Bundle;
 
 import android.text.format.Formatter;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import androidx.core.app.NotificationCompat;
 
 import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-import com.google.android.gms.common.ConnectionResult;
+
+import com.example.myapptelephony.Activities.MainActivity;
 
 
 import java.io.BufferedReader;
 
 import java.io.InputStreamReader;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
 import static android.content.Context.MODE_PRIVATE;

@@ -1,4 +1,4 @@
-package com.example.myapptelephony;
+package com.example.myapptelephony.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
+
+import com.example.myapptelephony.R;
 
 public class Splash extends AppCompatActivity {
     public static int Time_Screen = 3000;

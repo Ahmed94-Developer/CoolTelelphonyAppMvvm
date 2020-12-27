@@ -1,4 +1,4 @@
-package com.example.myapptelephony.room;
+package com.example.myapptelephony.Mvvm;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -9,15 +9,15 @@ public class NetWork {
     private int id;
 
     private String speed;
-   private String connectivity;
+    private String connectivity;
     private String ipAddress;
     private String latitude;
-   private String longtitude;
+    private String longtitude;
     private String locality;
     private String countryName;
     private String latency;
     private String packetLoss;
-   private String packetDelay;
+    private String packetDelay;
 
  public NetWork(String speed,String connectivity,String ipAddress,String latitude,String longtitude,String locality
                    ,String countryName,String latency,String packetLoss,String packetDelay) {

@@ -1,4 +1,4 @@
-package com.example.myapptelephony.room;
+package com.example.myapptelephony.Mvvm;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -32,6 +32,7 @@ public class NetWorkRepository {
     public LiveData<List<NetWork>> getNetWorkInfo(){
         return netWorkInfo;
     }
+
     private static class InsertAsyncTask extends AsyncTask<NetWork,Void,Void>{
        private NetWorkDao netWorkDao;
 

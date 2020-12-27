@@ -1,4 +1,4 @@
-package com.example.myapptelephony.room;
+package com.example.myapptelephony.Mvvm;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -26,6 +26,4 @@ public interface NetWorkDao {
 
     @Query("SELECT *FROM network_table ")
     LiveData<List<NetWork>> getAllInfo();
-
-
 }

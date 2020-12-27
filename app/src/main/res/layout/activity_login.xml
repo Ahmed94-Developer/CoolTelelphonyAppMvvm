@@ -7,7 +7,7 @@
     android:gravity="center|center"
     android:background="@drawable/bg_txt"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".Activities.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -27,7 +27,7 @@
         android:text="UserId" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/mail"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="15dp"
@@ -48,7 +48,7 @@
         android:text="PassWord" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/passWord"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/shape"
