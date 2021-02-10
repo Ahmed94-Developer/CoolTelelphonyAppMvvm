@@ -1,15 +1,17 @@
-package com.example.myapptelephony.Mvvm;
+package com.example.myapptelephony.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import java.util.List;
+import com.example.myapptelephony.model.NetWork;
+import com.example.myapptelephony.room.NetWorkDao;
+import com.example.myapptelephony.room.NetWorkDataBase;
 
 public class NetWorkRepository {
     private NetWorkDao netWorkDao;
-    private LiveData<List<NetWork>> netWorkInfo;
+    private LiveData<NetWork> netWorkInfo;
 
     public NetWorkRepository(Application application) {
         NetWorkDataBase dataBase = NetWorkDataBase.getInstance(application);
@@ -29,7 +31,7 @@ public class NetWorkRepository {
     public void deleteAll(){
         new deleteAllAsyncTask(netWorkDao).execute();
     }
-    public LiveData<List<NetWork>> getNetWorkInfo(){
+    public LiveData<NetWork> getNetWorkInfo(){
         return netWorkInfo;
     }
 

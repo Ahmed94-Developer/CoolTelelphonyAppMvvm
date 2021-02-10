@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="data"
-            type="com.example.myapptelephony.Mvvm.NetWorkViewModel" />
+            name="viewModel"
+            type="com.example.myapptelephony.viewmodel.NetWorkViewModel" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MainActivity">
+    tools:context=".ui.activities.MainActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/bg_txt"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:theme="@style/ThemeToolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:text=""
             android:background="@drawable/edit_shape" />
 
         <TextView
@@ -91,6 +92,7 @@
             android:layout_marginLeft="10dp"
             android:paddingLeft="5dp"
             android:layout_marginRight="10dp"
+            android:text=""
             android:background="@drawable/edit_shape" />
 
         <TextView
@@ -110,6 +112,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/edit_shape"
+            android:text=""
             android:paddingLeft="5dp" />
 
         <TextView
@@ -128,6 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:text=""
             android:background="@drawable/edit_shape"
             />
 

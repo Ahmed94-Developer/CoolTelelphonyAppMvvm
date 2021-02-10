@@ -1,4 +1,4 @@
-package com.example.myapptelephony.Mvvm;
+package com.example.myapptelephony.room;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -8,6 +8,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import com.example.myapptelephony.model.NetWork;
 
 @Database(entities = {NetWork.class},version = 1)
 public abstract class NetWorkDataBase extends RoomDatabase {
@@ -31,7 +33,7 @@ public abstract class NetWorkDataBase extends RoomDatabase {
         }
     };
     private static class PopulateAsyncTask extends AsyncTask<Void,Void,Void>{
-       private NetWorkDao netWorkDao;
+        private NetWorkDao netWorkDao;
         private PopulateAsyncTask(NetWorkDataBase db){
             netWorkDao = db.netWorkDao();
         }

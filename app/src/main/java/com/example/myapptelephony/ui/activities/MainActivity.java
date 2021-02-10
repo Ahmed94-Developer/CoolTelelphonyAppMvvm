@@ -1,8 +1,9 @@
-package com.example.myapptelephony.Activities;
+package com.example.myapptelephony.ui.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -25,23 +26,25 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapptelephony.NetWorker;
+import com.example.myapptelephony.worker.NetWorker;
 import com.example.myapptelephony.R;
 import com.example.myapptelephony.audioFile.CallRecordingService;
 import com.example.myapptelephony.databinding.ActivityMainBinding;
-import com.example.myapptelephony.Mvvm.NetWork;
-import com.example.myapptelephony.Mvvm.NetWorkViewModel;
+import com.example.myapptelephony.model.NetWork;
+import com.example.myapptelephony.viewmodel.NetWorkViewModel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements
     TextView SpeedText, ConnectivityText, ipText, LocationText, packetDropText;
     ImageButton MicOn;
     NetWorkViewModel netWorkViewModel;
-    ActivityMainBinding binding;
+    ActivityMainBinding binding1;
     private Location location;
     private GoogleApiClient googleApiClient;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -68,7 +71,8 @@ public class MainActivity extends AppCompatActivity implements
     private ArrayList<String> permissionsRejected = new ArrayList<>();
     private ArrayList<String> permissions = new ArrayList<>();
     private static final int ALL_PERMISSIONS_RESULT = 1011;
-
+    NetWork netWork;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,28 +104,42 @@ public class MainActivity extends AppCompatActivity implements
                 addConnectionCallbacks(this).
                 addOnConnectionFailedListener(this).build();
 
+
         netWorkViewModel = new ViewModelProvider(this, ViewModelProvider
                 .AndroidViewModelFactory.getInstance(this.getApplication())).get(NetWorkViewModel.class);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        binding.setLifecycleOwner(this);
-        binding.setData(netWorkViewModel);
-        binding.invalidateAll();
+       binding1 = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        netWorkViewModel.getNetWorkInfo().observe(this, new Observer<List<NetWork>>() {
+        binding1.setViewModel(netWorkViewModel);
+        binding1.invalidateAll();
+        binding1.setLifecycleOwner(this);
+        binding1.toolbar.inflateMenu(R.menu.main_menu);
+
+        binding1.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
-            public void onChanged(List<NetWork> netWorks) {
-                // Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
-                for (int i = 0; i < netWorks.size(); i++) {
-                    binding.textView13.setText(netWorks.get(i).getSpeed());
-                    binding.textView17.setText(netWorks.get(i).getIpAddress());
-                    binding.textView15.setText(netWorks.get(i).getConnectivity());
-                    binding.textView15.setMovementMethod(new ScrollingMovementMethod());
-                    binding.textView19.setText("Latitude : " + netWorks.get(i).getLatitude()
-                            + " ;" + "Longtitude :" + netWorks.get(i).getLongtitude() + "\n" + "Location : "
-                            + netWorks.get(i).getLocality() + " ; " + netWorks.get(i).getCountryName());
-                    binding.textView23.setText(" Latency :" + netWorks.get(i).getLatency() + " ;" + " PacketLost : "
-                            + netWorks.get(i).getPacketLoss() + "\n" + " PacketDelay : " + netWorks.get(i).getPacketDelay());
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.item){
+                    Intent i = new Intent(MainActivity.this,LoginActivity.class);
+                    startActivity(i);
                 }
+                return false;
+            }
+        });
+
+
+       netWorkViewModel.getNetWorkInfo().observe(this, new Observer<NetWork>() {
+            @Override
+            public void onChanged(NetWork netWorks) {
+                // Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
+                binding1.textView13.setText(netWorks.getSpeed());
+                binding1.textView17.setText(netWorks.getIpAddress());
+                binding1.textView15.setText(netWorks.getConnectivity());
+                binding1.textView15.setMovementMethod(new ScrollingMovementMethod());
+                binding1.textView19.setText("Latitude : " + netWorks.getLatitude()
+                        + " ;" + "Longtitude :" + netWorks.getLongtitude() + "\n" + "Location : "
+                        + netWorks.getLocality() + " ; " + netWorks.getCountryName());
+                binding1.textView23.setText(" Latency :" + netWorks.getLatency() + " ;" + " PacketLost : "
+                        + netWorks.getPacketLoss() + "\n" + " PacketDelay : " + netWorks.getPacketDelay());
+
             }
         });
 
@@ -143,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements
                 .setConstraints(constraints).build();
         WorkManager.getInstance(MainActivity.this)
                 .enqueue(request);
-
                 SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs1", MODE_PRIVATE);
                 String Speed = prefs.getString("speed", "Speed");
                 String ip = prefs.getString("ip1", "ip11");
@@ -152,12 +169,15 @@ public class MainActivity extends AppCompatActivity implements
                 String delay = prefs.getString("delay", "delay1");
                 String loss = prefs.getString("lost", "lost1");
 
-                NetWork netWork = new NetWork(Speed, connection, ip, latitude1, longtitude1, locality, countryName, latency, loss, delay);
+                netWork = new NetWork(Speed, connection, ip, latitude1, longtitude1, locality, countryName, latency, loss, delay);
                 netWorkViewModel.insert(netWork);
-           }}, 2000, 600000);
+                netWork.setId(1);
+                netWorkViewModel.Update(netWork);
+
+           }}, 2000, 60000);
 
 
-        binding.imageButton5.setOnClickListener(new View.OnClickListener() {
+        binding1.imageButton5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CallRecordingService.class);
@@ -360,6 +380,7 @@ public class MainActivity extends AppCompatActivity implements
 
                 break;
         }
+
     }
 
 }

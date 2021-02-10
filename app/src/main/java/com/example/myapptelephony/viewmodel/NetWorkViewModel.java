@@ -1,4 +1,4 @@
-package com.example.myapptelephony.Mvvm;
+package com.example.myapptelephony.viewmodel;
 
 import android.app.Application;
 
@@ -6,11 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import java.util.List;
+import com.example.myapptelephony.repository.NetWorkRepository;
+import com.example.myapptelephony.model.NetWork;
 
 public class NetWorkViewModel extends AndroidViewModel {
     private NetWorkRepository repository;
-    private LiveData<List<NetWork>> netWorkInfo;
+    private LiveData<NetWork> netWorkInfo;
     private NetWork netWork;
     public NetWorkViewModel(@NonNull Application application) {
         super(application);
@@ -29,7 +30,7 @@ public class NetWorkViewModel extends AndroidViewModel {
     public void DeleteAll(){
         repository.deleteAll();
     }
-    public LiveData<List<NetWork>> getNetWorkInfo(){
+    public LiveData<NetWork> getNetWorkInfo(){
         return netWorkInfo;
     }
 }

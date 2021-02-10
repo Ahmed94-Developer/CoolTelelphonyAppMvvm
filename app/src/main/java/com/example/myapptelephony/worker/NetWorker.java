@@ -1,4 +1,4 @@
-package com.example.myapptelephony;
+package com.example.myapptelephony.worker;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -22,7 +22,8 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.example.myapptelephony.Activities.MainActivity;
+import com.example.myapptelephony.R;
+import com.example.myapptelephony.ui.activities.MainActivity;
 
 
 import java.io.BufferedReader;
@@ -47,7 +48,7 @@ public class NetWorker extends Worker{
         final String desc = data.getString(MainActivity.KEY_TASK_DESC);
 
 
-        displayNotification("Hey Iam your work", desc);
+        displayNotification("Loading Network Details", desc);
 
         ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -149,7 +150,7 @@ public class NetWorker extends Worker{
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),"simplifiedcoding")
                 .setContentText(desc)
                 .setContentTitle(title)
-                .setSmallIcon(R.mipmap.ic_launcher);
+                .setSmallIcon(R.drawable.notification);
         manager.notify(1,builder.build());
     }
 }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1034418537014",
+    "project_id": "myapptelephony",
+    "storage_bucket": "myapptelephony.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034418537014:android:c448499e0e4f3fb0458e97",
+        "android_client_info": {
+          "package_name": "com.example.myapptelephony"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1034418537014-3cr9hf1ddddqoddfsck1tjp38ap2260m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapptelephony",
+            "certificate_hash": "c81c2d9a05af4b0c22725c613c66dba51f77e51f"
+          }
+        },
+        {
+          "client_id": "1034418537014-63v11j8g7iclpl40ctfq3seucetn9q2n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1p8bZWt4TOiyVSEHxC16LG6Ebv5_dS2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1034418537014-63v11j8g7iclpl40ctfq3seucetn9q2n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

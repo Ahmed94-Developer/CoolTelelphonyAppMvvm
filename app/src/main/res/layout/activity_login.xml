@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+    <data>
+
+    </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +12,7 @@
     android:gravity="center|center"
     android:background="@drawable/bg_txt"
     android:layout_height="match_parent"
-    tools:context=".Activities.LoginActivity">
+    tools:context=".ui.activities.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -32,6 +37,7 @@
         android:layout_height="40dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:paddingLeft="5dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/shape"
         android:ems="10"
@@ -54,6 +60,8 @@
         android:background="@drawable/shape"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:paddingLeft="5dp"
+        android:textColor="#FFF"
         android:ems="10"
         android:inputType="textPassword" />
 
@@ -67,3 +75,4 @@
         android:layout_marginTop="30dp"
         android:text="login" />
 </LinearLayout>
+</layout>

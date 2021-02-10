@@ -1,4 +1,4 @@
-package com.example.myapptelephony.Activities;
+package com.example.myapptelephony.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,6 +28,7 @@ public class Splash extends AppCompatActivity {
             public void run() {
                 Intent i = new Intent(Splash.this,LoginActivity.class);
                 startActivity(i);
+                finish();
             }
         },Time_Screen);
     }

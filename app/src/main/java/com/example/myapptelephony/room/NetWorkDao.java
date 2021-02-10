@@ -1,18 +1,19 @@
-package com.example.myapptelephony.Mvvm;
+package com.example.myapptelephony.room;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import java.util.List;
+import com.example.myapptelephony.model.NetWork;
 
 @Dao
 public interface NetWorkDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(NetWork netWork);
 
     @Update
@@ -25,5 +26,5 @@ public interface NetWorkDao {
     void deleteAllInfo();
 
     @Query("SELECT *FROM network_table ")
-    LiveData<List<NetWork>> getAllInfo();
+    LiveData<NetWork> getAllInfo();
 }

@@ -9,7 +9,7 @@
     android:gravity="center|center"
     android:background="@drawable/bg_txt"
     android:layout_height="match_parent"
-    tools:context=".Activities.Splash">
+    tools:context=".ui.activities.Splash">
 
     <ImageView
         android:id="@+id/imageView"

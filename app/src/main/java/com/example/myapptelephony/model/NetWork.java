@@ -1,4 +1,4 @@
-package com.example.myapptelephony.Mvvm;
+package com.example.myapptelephony.model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
