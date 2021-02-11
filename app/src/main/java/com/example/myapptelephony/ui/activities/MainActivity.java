@@ -32,12 +32,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapptelephony.worker.NetWorker;
 import com.example.myapptelephony.R;
 import com.example.myapptelephony.audioFile.CallRecordingService;
 import com.example.myapptelephony.databinding.ActivityMainBinding;
 import com.example.myapptelephony.model.NetWork;
 import com.example.myapptelephony.viewmodel.NetWorkViewModel;
+import com.example.myapptelephony.worker.NetWorker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -130,15 +130,15 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void onChanged(NetWork netWorks) {
                 // Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
-                binding1.textView13.setText(netWorks.getSpeed());
-                binding1.textView17.setText(netWorks.getIpAddress());
-                binding1.textView15.setText(netWorks.getConnectivity());
+                binding1.textView13.setText(netWorks.getSpeed()+"");
+                binding1.textView17.setText(netWorks.getIpAddress()+"");
+                binding1.textView15.setText(netWorks.getConnectivity()+"");
                 binding1.textView15.setMovementMethod(new ScrollingMovementMethod());
                 binding1.textView19.setText("Latitude : " + netWorks.getLatitude()
                         + " ;" + "Longtitude :" + netWorks.getLongtitude() + "\n" + "Location : "
                         + netWorks.getLocality() + " ; " + netWorks.getCountryName());
-                binding1.textView23.setText(" Latency :" + netWorks.getLatency() + " ;" + " PacketLost : "
-                        + netWorks.getPacketLoss() + "\n" + " PacketDelay : " + netWorks.getPacketDelay());
+                binding1.textView23.setText(" Latency :" + netWorks.getLatency()+"" + " ;" + " PacketLost : "
+                        + netWorks.getPacketLoss()+"" + "\n" + " PacketDelay : " + netWorks.getPacketDelay()+"");
 
             }
         });
@@ -147,10 +147,10 @@ public class MainActivity extends AppCompatActivity implements
        Timer time = new Timer();
 
         time.schedule(new TimerTask() {
-            public void run() {
+           public void run() {
 
          Data data = new Data.Builder()
-                .putString(KEY_TASK_DESC, "Sending work data").build();
+                .putString(KEY_TASK_DESC, "Sending netWork data").build();
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED).setRequiresBatteryNotLow(true).build();
 
@@ -162,19 +162,20 @@ public class MainActivity extends AppCompatActivity implements
         WorkManager.getInstance(MainActivity.this)
                 .enqueue(request);
                 SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs1", MODE_PRIVATE);
-                String Speed = prefs.getString("speed", "Speed");
-                String ip = prefs.getString("ip1", "ip11");
-                String connection = prefs.getString("connect1", "connectivity");
-                String latency = prefs.getString("latency", "latency1");
-                String delay = prefs.getString("delay", "delay1");
-                String loss = prefs.getString("lost", "lost1");
+                String Speed = prefs.getString("speed", "");
+                String ip = prefs.getString("ip1", "");
+                String connection = prefs.getString("connect1", "");
+                String latency = prefs.getString("latency", "");
+                String delay = prefs.getString("delay", "");
+                String loss = prefs.getString("lost", "");
+
 
                 netWork = new NetWork(Speed, connection, ip, latitude1, longtitude1, locality, countryName, latency, loss, delay);
                 netWorkViewModel.insert(netWork);
                 netWork.setId(1);
                 netWorkViewModel.Update(netWork);
 
-           }}, 2000, 60000);
+          }}, 500, 10000);
 
 
         binding1.imageButton5.setOnClickListener(new View.OnClickListener() {
@@ -186,10 +187,10 @@ public class MainActivity extends AppCompatActivity implements
         });
     }
 
-    String latitude1;
-    String longtitude1;
-    String locality;
-    String countryName;
+  public static  String latitude1;
+  public static String longtitude1;
+   public static String locality;
+   public static String countryName;
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {

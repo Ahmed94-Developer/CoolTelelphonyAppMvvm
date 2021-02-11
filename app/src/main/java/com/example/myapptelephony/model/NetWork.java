@@ -33,6 +33,46 @@ public class NetWork {
         this.packetDelay = packetDelay;
     }
 
+    public void setSpeed(String speed) {
+        this.speed = speed;
+    }
+
+    public void setConnectivity(String connectivity) {
+        this.connectivity = connectivity;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongtitude(String longtitude) {
+        this.longtitude = longtitude;
+    }
+
+    public void setLocality(String locality) {
+        this.locality = locality;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    public void setLatency(String latency) {
+        this.latency = latency;
+    }
+
+    public void setPacketLoss(String packetLoss) {
+        this.packetLoss = packetLoss;
+    }
+
+    public void setPacketDelay(String packetDelay) {
+        this.packetDelay = packetDelay;
+    }
+
     public int getId() {
         return id;
     }
