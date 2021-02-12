@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // btnLogin.setOnClickListener(this);
 
 
-      Data data = new Data.Builder()
+     Data data = new Data.Builder()
                 .putString(KEY_TASK_DESC, "Sending netWork data").build();
         Constraints constraints = new Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -131,6 +131,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String loss = prefs.getString("lost", "");
         netWork = new NetWork(Speed, connection, ip, latitude1,longtitude1,locality, countryName, latency, loss, delay);
         netWorkViewModel.insert(netWork);
+
+
 
     }
 

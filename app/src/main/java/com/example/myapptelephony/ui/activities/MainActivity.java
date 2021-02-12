@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements
        netWorkViewModel.getNetWorkInfo().observe(this, new Observer<NetWork>() {
             @Override
             public void onChanged(NetWork netWorks) {
-                // Toast.makeText(MainActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
+
                 binding1.textView13.setText(netWorks.getSpeed()+"");
                 binding1.textView17.setText(netWorks.getIpAddress()+"");
                 binding1.textView15.setText(netWorks.getConnectivity()+"");
@@ -152,13 +152,12 @@ public class MainActivity extends AppCompatActivity implements
          Data data = new Data.Builder()
                 .putString(KEY_TASK_DESC, "Sending netWork data").build();
         Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED).setRequiresBatteryNotLow(true).build();
+                .build();
 
         OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(NetWorker.class)
                 .setInputData(data)
                 .addTag("tag")
-                .setInitialDelay(0,TimeUnit.MILLISECONDS)
-                .setConstraints(constraints).build();
+                 .setConstraints(constraints).build();
         WorkManager.getInstance(MainActivity.this)
                 .enqueue(request);
                 SharedPreferences prefs = getApplicationContext().getSharedPreferences("prefs1", MODE_PRIVATE);
@@ -171,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements
 
 
                 netWork = new NetWork(Speed, connection, ip, latitude1, longtitude1, locality, countryName, latency, loss, delay);
-                netWorkViewModel.insert(netWork);
                 netWork.setId(1);
                 netWorkViewModel.Update(netWork);
 
@@ -187,8 +185,8 @@ public class MainActivity extends AppCompatActivity implements
         });
     }
 
-  public static  String latitude1;
-  public static String longtitude1;
+   public static  String latitude1;
+   public static String longtitude1;
    public static String locality;
    public static String countryName;
 
